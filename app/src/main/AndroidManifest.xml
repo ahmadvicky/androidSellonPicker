@@ -42,6 +42,41 @@
     </queries>
     <!--适配Android R包可见性 结束-->
 
+    <application
+        android:name=".App"
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="false"
+        android:theme="@style/AppTheme"
+        tools:targetApi="q">
+        <!-- 全面屏-->
+        <meta-data
+            android:name="android.max_aspect"
+            android:value="2.1" />
 
+        <activity
+            android:name=".MainActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="fullSensor">
+
+        </activity>
+        <activity
+            android:name=".InjectFragmentActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="fullSensor">
+
+        </activity>
+        <activity
+            android:name=".SimpleActivity"
+            android:exported="true"
+            android:screenOrientation="fullSensor">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
 
 </manifest>
