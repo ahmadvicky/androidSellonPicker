@@ -1,6 +1,9 @@
+apply plugin: 'com.android.application'
+apply plugin: 'maven-publish'
+//apply plugin: 'com.google.gms.google-services'
 //apply plugin: 'com.android.application'
 
-apply plugin: 'com.android.library'
+
 
 static def releaseTime() {
     def date = new Date()
@@ -11,7 +14,7 @@ android {
     compileSdkVersion cfgs.compileSdkVersion
 
     defaultConfig {
-//        applicationId "com.luck.pictureselector"
+        applicationId "com.selon.pictureselector"
         minSdkVersion cfgs.minSdkVersion
         targetSdkVersion cfgs.targetSdkVersion
         versionCode cfgs.versionCode
@@ -44,15 +47,19 @@ android {
             variant.outputs.all { output ->
                 if ('release' == variant.buildType.name) {
                     def outputFile = output.outputFile
-                    if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                    if (outputFile != null && outputFile.name.endsWith('.aar')) {
                         def time = releaseTime()
-                        def fileName = "demo_${time}${"_" + versionName}.apk"
+                        def fileName = "demo_${time}${"_" + versionName}.aar"
                         outputFileName = fileName
                     }
                 }
             }
         }
     }
+
+
+
+
 
 //    dexOptions {
 //        javaMaxHeapSize "4g"
@@ -68,6 +75,77 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 }
+
+task comps {
+    afterEvaluate {
+        println("Components: " + components*.name)
+    }
+}
+
+//task androidJavadocs(type: Javadoc) {
+//    source = android.sourceSets.main.java.srcDirs
+//    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+//    android.libraryVariants.all { variant ->
+//        if (variant.name == 'release') {
+//            owner.classpath += variant.javaCompileProvider.get().classpath
+//        }
+//    }
+//    exclude '**/R.html', '**/R.*.html', '**/index.html'
+//}
+//
+//task androidJavadocsJar(type: Jar, dependsOn: androidJavadocs) {
+//    archiveClassifier.set('javadoc')
+//    from androidJavadocs.destinationDir
+//}
+//
+//task androidSourcesJar(type: Jar) {
+//    archiveClassifier.set('sources')
+//    from android.sourceSets.main.java.srcDirs
+//}
+
+// Because the components are created only during the afterEvaluate phase, you must
+// configure your publications using the afterEvaluate() lifecycle method.
+afterEvaluate {
+    publishing {
+        publications {
+            // Creates a Maven publication called "release".
+            mavenAar(MavenPublication) {
+                // Applies the component for the release build variant.
+//                from components.release
+
+                // You can then customize attributes of the publication as shown below.
+                groupId 'com.sellon.picker'
+                artifactId "$project.name"
+                version = '1.0.16'
+            }
+            // Creates a Maven publication called “debug”.
+//            debug(MavenPublication) {
+//                // Applies the component for the debug build variant.
+//                from components.debug_apk
+//
+//                groupId 'com.sellon.picker'
+//                artifactId 'picker'
+//                version = '1.0.13'
+//            }
+        }
+    }
+
+//    publishing {
+//        publications {
+//            android.libraryVariants.all { variant ->
+//
+//                "maven${variant.name.capitalize()}Aar"(MavenPublication) {
+//                    from components.findByName("android${variant.name.capitalize()}")
+//                    groupId 'com.sello.picker-publish'
+//                    artifactId 'picker-publish'
+//                    version "1.0.8-${variant.name}"
+//                }
+//            }
+//        }
+//    }
+}
+
+
 
 dependencies {
     implementation project(':selector')
