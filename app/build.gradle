@@ -47,9 +47,9 @@ android {
             variant.outputs.all { output ->
                 if ('release' == variant.buildType.name) {
                     def outputFile = output.outputFile
-                    if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                    if (outputFile != null && outputFile.name.endsWith('.aar')) {
                         def time = releaseTime()
-                        def fileName = "demo_${time}${"_" + versionName}.apk"
+                        def fileName = "demo_${time}${"_" + versionName}.aar"
                         outputFileName = fileName
                     }
                 }
@@ -116,7 +116,7 @@ afterEvaluate {
                 // You can then customize attributes of the publication as shown below.
                 groupId 'com.sellon.picker'
                 artifactId "$project.name"
-                version = '1.0.14'
+                version = '1.0.15'
             }
             // Creates a Maven publication called “debug”.
 //            debug(MavenPublication) {
