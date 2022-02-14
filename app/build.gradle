@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'maven-publish'
-apply plugin: 'com.google.gms.google-services'
-apply plugin: 'com.android.application'
+//apply plugin: 'com.google.gms.google-services'
+//apply plugin: 'com.android.application'
 
 
 
@@ -116,7 +116,7 @@ afterEvaluate {
                 // You can then customize attributes of the publication as shown below.
                 groupId 'com.sellon.picker'
                 artifactId 'picker'
-                version = '1.0.12'
+                version = '1.0.13'
             }
             // Creates a Maven publication called “debug”.
             debug(MavenPublication) {
@@ -125,7 +125,7 @@ afterEvaluate {
 
                 groupId 'com.sellon.picker'
                 artifactId 'picker'
-                version = '1.0.12'
+                version = '1.0.13'
             }
         }
     }
