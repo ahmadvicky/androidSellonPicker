@@ -74,6 +74,7 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    buildToolsVersion '31.0.0'
 }
 
 task comps {
@@ -114,9 +115,9 @@ afterEvaluate {
 //                from components.release
 
                 // You can then customize attributes of the publication as shown below.
-                groupId 'com.sellon.picker'
+                groupId 'com.chavesgu.images_picker'
                 artifactId "$project.name"
-                version = '1.0.16'
+                version = '1.0.17'
             }
             // Creates a Maven publication called “debug”.
 //            debug(MavenPublication) {
@@ -145,6 +146,19 @@ afterEvaluate {
 //    }
 }
 
+task deleteJar(type: Delete) {
+    delete 'libs/androidsellon.jar'
+}
+
+task exportjar(type: Copy) {
+    from('build/intermediates/compile_library_classes/release/')
+    into('libs/')
+    include('classes.jar')
+    rename('classes.jar', 'androidsellon.jar')
+}
+
+exportjar.dependsOn(deleteJar, build)
+
 
 
 dependencies {
@@ -152,7 +166,7 @@ dependencies {
     implementation project(':compress')
     implementation project(':ucrop')
     implementation project(":camerax")
-    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.8'
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.8.1'
     implementation "androidx.appcompat:appcompat:${cfgs.version_appcompat}"
     implementation "com.google.android.exoplayer:exoplayer:${cfgs.exoplayer}"
     implementation "androidx.constraintlayout:constraintlayout:${cfgs.constraintlayout}"
