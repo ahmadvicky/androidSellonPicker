@@ -22,16 +22,16 @@ def developerAuthorId = mavenUsername
 def developerAuthorName = mavenUsername
 
 
-println("${mavenUsername} ${mavenPassword} - ${projectGroupId}:${projectArtifactId}:${projectVersionName}")
+println("${developerAuthorId} ${mavenPassword} - ${projectGroupId}:${projectArtifactId}:${projectVersionName}")
 println("${projectLicense} - ${projectLicenseUrl}")
 
-if (!mavenUsername || !mavenPassword || !projectGroupId || !projectArtifactId || !projectVersionName) {
-    println('Error：缺少参数')
-    return
-}
-if (!projectDescription || !projectGitUrl || !projectLicense || !projectLicenseUrl || !developerAuthorId || !developerAuthorName || !developerAuthorEmail) {
-    println('Warning：缺少可选信息')
-}
+//if (!mavenUsername || !mavenPassword || !projectGroupId || !projectArtifactId || !projectVersionName) {
+//    println("Error：缺少参数 ${mavenUsername}")
+//    return
+//}
+//if (!projectDescription || !projectGitUrl || !projectLicense || !projectLicenseUrl || !developerAuthorId || !developerAuthorName || !developerAuthorEmail) {
+//    println('Warning：缺少可选信息')
+//}
 
 def isAndroidProject = project.hasProperty('android')
 if (isAndroidProject) {
@@ -82,7 +82,7 @@ artifacts {
 publishing {
     publications {
         aar(MavenPublication) {
-            groupId = projectGroupId
+            groupId = "com.ahmadvicky"
             artifactId = projectArtifactId
             version = projectVersionName
             // Tell maven to prepare the generated "*.aar" file for publishing
@@ -105,13 +105,13 @@ publishing {
                         url = projectLicenseUrl
                     }
                 }
-                developers {
-                    developer {
-                        id = developerAuthorId
-                        name = developerAuthorName
-                        email = developerAuthorEmail
-                    }
-                }
+//                developers {
+//                    developer {
+//                        id = developerAuthorId
+//                        name = developerAuthorName
+//                        email = developerAuthorEmail
+//                    }
+//                }
                 // Version control info, if you're using GitHub, follow the format as seen here
                 scm {
                     connection = "scm:git:${projectGitUrl}"

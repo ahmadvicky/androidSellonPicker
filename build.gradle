@@ -36,4 +36,31 @@ task clean(type: Delete) {
     delete rootProject.buildDir
 }
 
+//afterEvaluate {
+//    publishing {
+//        publications {
+//            // Creates a Maven publication called "release".
+//            mavenAar(MavenPublication) {
+//                // Applies the component for the release build variant.
+////                from components.release
+//
+//                // You can then customize attributes of the publication as shown below.
+//                groupId 'com.ahmadvicky'
+//                artifactId "$project.name"
+//                version = '1.0.19'
+//            }
+//            // Creates a Maven publication called “debug”.
+////            debug(MavenPublication) {
+////                // Applies the component for the debug build variant.
+////                from components.debug_apk
+////
+////                groupId 'com.sellon.picker'
+////                artifactId 'picker'
+////                version = '1.0.13'
+////            }
+//        }
+//    }
+//
+//}
+
 

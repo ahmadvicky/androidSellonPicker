@@ -1,8 +1,5 @@
 apply plugin: 'com.android.application'
 apply plugin: 'maven-publish'
-//apply plugin: 'com.google.gms.google-services'
-//apply plugin: 'com.android.application'
-
 
 
 static def releaseTime() {
@@ -57,10 +54,6 @@ android {
         }
     }
 
-
-
-
-
 //    dexOptions {
 //        javaMaxHeapSize "4g"
 //    }
@@ -82,69 +75,32 @@ task comps {
         println("Components: " + components*.name)
     }
 }
+afterEvaluate {
+    publishing {
+        publications {
+            // Creates a Maven publication called "release".
+            mavenAar(MavenPublication) {
+                // Applies the component for the release build variant.
+//                from components.release
 
-//task androidJavadocs(type: Javadoc) {
-//    source = android.sourceSets.main.java.srcDirs
-//    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
-//    android.libraryVariants.all { variant ->
-//        if (variant.name == 'release') {
-//            owner.classpath += variant.javaCompileProvider.get().classpath
-//        }
-//    }
-//    exclude '**/R.html', '**/R.*.html', '**/index.html'
-//}
+                // You can then customize attributes of the publication as shown below.
+                groupId 'com.ahmadvicky'
+                artifactId "$project.name"
+                version = '1.0.21'
+            }
+            // Creates a Maven publication called “debug”.
+//            debug(MavenPublication) {
+//                // Applies the component for the debug build variant.
+//                from components.debug_apk
 //
-//task androidJavadocsJar(type: Jar, dependsOn: androidJavadocs) {
-//    archiveClassifier.set('javadoc')
-//    from androidJavadocs.destinationDir
-//}
-//
-//task androidSourcesJar(type: Jar) {
-//    archiveClassifier.set('sources')
-//    from android.sourceSets.main.java.srcDirs
-//}
-
-// Because the components are created only during the afterEvaluate phase, you must
-// configure your publications using the afterEvaluate() lifecycle method.
-//afterEvaluate {
-//    publishing {
-//        publications {
-//            // Creates a Maven publication called "release".
-//            mavenAar(MavenPublication) {
-//                // Applies the component for the release build variant.
-////                from components.release
-//
-//                // You can then customize attributes of the publication as shown below.
-//                groupId 'com.ahmadvicky'
-//                artifactId "$project.name"
-//                version = '1.0.19'
+//                groupId 'com.sellon.picker'
+//                artifactId 'picker'
+//                version = '1.0.13'
 //            }
-//            // Creates a Maven publication called “debug”.
-////            debug(MavenPublication) {
-////                // Applies the component for the debug build variant.
-////                from components.debug_apk
-////
-////                groupId 'com.sellon.picker'
-////                artifactId 'picker'
-////                version = '1.0.13'
-////            }
-//        }
-//    }
-//
-////    publishing {
-////        publications {
-////            android.libraryVariants.all { variant ->
-////
-////                "maven${variant.name.capitalize()}Aar"(MavenPublication) {
-////                    from components.findByName("android${variant.name.capitalize()}")
-////                    groupId 'com.sello.picker-publish'
-////                    artifactId 'picker-publish'
-////                    version "1.0.8-${variant.name}"
-////                }
-////            }
-////        }
-////    }
-//}
+        }
+    }
+
+}
 
 task deleteJar(type: Delete) {
     delete 'libs/androidsellon.jar'
@@ -158,8 +114,6 @@ task exportjar(type: Copy) {
 }
 
 exportjar.dependsOn(deleteJar, build)
-
-
 
 dependencies {
     implementation project(':selector')
