@@ -106,45 +106,45 @@ task comps {
 
 // Because the components are created only during the afterEvaluate phase, you must
 // configure your publications using the afterEvaluate() lifecycle method.
-afterEvaluate {
-    publishing {
-        publications {
-            // Creates a Maven publication called "release".
-            mavenAar(MavenPublication) {
-                // Applies the component for the release build variant.
-//                from components.release
-
-                // You can then customize attributes of the publication as shown below.
-                groupId 'com.ahmadvicky'
-                artifactId "$project.name"
-                version = '1.0.19'
-            }
-            // Creates a Maven publication called “debug”.
-//            debug(MavenPublication) {
-//                // Applies the component for the debug build variant.
-//                from components.debug_apk
-//
-//                groupId 'com.sellon.picker'
-//                artifactId 'picker'
-//                version = '1.0.13'
-//            }
-        }
-    }
-
+//afterEvaluate {
 //    publishing {
 //        publications {
-//            android.libraryVariants.all { variant ->
+//            // Creates a Maven publication called "release".
+//            mavenAar(MavenPublication) {
+//                // Applies the component for the release build variant.
+////                from components.release
 //
-//                "maven${variant.name.capitalize()}Aar"(MavenPublication) {
-//                    from components.findByName("android${variant.name.capitalize()}")
-//                    groupId 'com.sello.picker-publish'
-//                    artifactId 'picker-publish'
-//                    version "1.0.8-${variant.name}"
-//                }
+//                // You can then customize attributes of the publication as shown below.
+//                groupId 'com.ahmadvicky'
+//                artifactId "$project.name"
+//                version = '1.0.19'
 //            }
+//            // Creates a Maven publication called “debug”.
+////            debug(MavenPublication) {
+////                // Applies the component for the debug build variant.
+////                from components.debug_apk
+////
+////                groupId 'com.sellon.picker'
+////                artifactId 'picker'
+////                version = '1.0.13'
+////            }
 //        }
 //    }
-}
+//
+////    publishing {
+////        publications {
+////            android.libraryVariants.all { variant ->
+////
+////                "maven${variant.name.capitalize()}Aar"(MavenPublication) {
+////                    from components.findByName("android${variant.name.capitalize()}")
+////                    groupId 'com.sello.picker-publish'
+////                    artifactId 'picker-publish'
+////                    version "1.0.8-${variant.name}"
+////                }
+////            }
+////        }
+////    }
+//}
 
 task deleteJar(type: Delete) {
     delete 'libs/androidsellon.jar'
